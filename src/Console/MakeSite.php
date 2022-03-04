@@ -1,5 +1,6 @@
 <?php namespace Visiosoft\AppSiteExtension\Console;
 
+use Anomaly\Streams\Platform\Application\ApplicationModel;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,7 +15,7 @@ class MakeSite extends Command
 
     protected $description = 'Create a new site.';
 
-    public function handle()
+    public function handle(ApplicationModel $model)
     {
         $name = $this->argument('name');
 
@@ -27,6 +28,14 @@ class MakeSite extends Command
         $password = $this->option('password') ? $this->option('password') : "admin123";
         $domain = $this->option('domain') ? $this->option('domain') : $name . ".ocify.site";
         $locale = $this->option('locale') ? $this->option('locale') : "en";
+
+        $model->newQuery()
+            ->create([
+                'name' => $name,
+                'reference' => $name,
+                'domain' => $domain,
+                'enabled' => true
+            ]);
 
         (new SiteInstaller())->install($name, $username, $email, $password, $domain, $locale);
 
