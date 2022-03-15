@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Illuminate\Routing\Router;
+use Visiosoft\AppSiteExtension\Console\MakeDomain;
 use Visiosoft\AppSiteExtension\Console\MakeSite;
 
 class AppSiteExtensionServiceProvider extends AddonServiceProvider
@@ -21,6 +22,7 @@ class AppSiteExtensionServiceProvider extends AddonServiceProvider
      */
     protected $commands = [
         MakeSite::class,
+        MakeDomain::class,
     ];
 
     /**
