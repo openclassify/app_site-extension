@@ -41,9 +41,13 @@ class MakeDomain extends Command
 
         $app = array_first($q);
 
-        DB::insert('insert into applications_domains (application_id, domain, locale) values (' . $app->id . ', "' . $domain . '", "en")');
-
-        $this->info("Added domain for $app->reference!");
+        if (!$this->option('remove')) {
+            DB::insert('insert into applications_domains (application_id, domain, locale) values (' . $app->id . ', "' . $domain . '", "en")');
+            $this->info("Added domain for $app->reference!");
+        } else {
+            DB::Statement('Delete from applications_domains WHERE domain = "' . $domain . '" AND application_id=' . $app->id);
+            $this->info("Removed domain for $app->reference!");
+        }
     }
 
     protected function getArguments()
@@ -57,6 +61,7 @@ class MakeDomain extends Command
     {
         return [
             ['reference', null, InputOption::VALUE_REQUIRED, 'Application reference'],
+            ['remove', null, InputOption::VALUE_NONE, 'Remove'],
         ];
     }
 }
