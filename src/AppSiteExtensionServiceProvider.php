@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Illuminate\Routing\Router;
+use Visiosoft\AppSiteExtension\Console\DeleteSite;
 use Visiosoft\AppSiteExtension\Console\DisableSite;
 use Visiosoft\AppSiteExtension\Console\EnableSite;
 use Visiosoft\AppSiteExtension\Console\MakeDomain;
@@ -27,6 +28,7 @@ class AppSiteExtensionServiceProvider extends AddonServiceProvider
         MakeDomain::class,
         DisableSite::class,
         EnableSite::class,
+        DeleteSite::class,
     ];
 
     /**
